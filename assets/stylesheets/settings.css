@@ -1,0 +1,91 @@
+/**
+ * Redmine Issue Hot Buttons plugin
+ */
+
+/**
+ * Hot button settings common styles
+ */
+#hot_buttons_settings {}
+  #hot_buttons_settings label {
+    margin: 0 5px 0 0;
+    float: none;
+    display: inline-block;
+    vertical-align: top;
+    width: 200px;
+  }
+  #hot_buttons_settings a.icon {
+    vertical-align: top;
+    margin-left: 5px;
+  }
+  #hot_buttons_settings input[type="text"] {
+    margin: 0;
+    width: 160px;
+  }
+  #hot_buttons_settings input[type="checkbox"] {
+    margin: 0;
+    margin-top: 2px;
+  }
+  #hot_buttons_settings select {
+    width: 160px;
+    margin: 0;
+  }
+
+/**
+ * Hot button selector style
+ */
+#hot_buttons_settings #hot_buttons_selector_wrapper label {
+  width: auto;
+}
+  #hot_buttons_settings #hot_buttons_selector_wrapper div.collapse_expand {
+    margin-top: 8px;
+  }
+/**
+ * Hot button list common styles
+ */
+#buttons_list {
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+  #buttons_list li.hot_button {
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid #E4E4E4;
+    background: white;
+    list-style: none;
+  }
+    #buttons_list li.hot_button p.title,
+    #buttons_list li.hot_button p.description {
+      margin: 0;
+      padding: 0;
+    }
+    #buttons_list li.hot_button p.title {
+      font-weight: bold;
+    }
+      #buttons_list li.hot_button p.title a.icon {
+        font-weight: normal;
+      }
+      #buttons_list li.hot_button p.title a.icon-del {
+        float: right;
+      }
+    #buttons_list li.hot_button fieldset {
+      margin-top: 10px;
+      padding-top: 10px;
+    }
+    #buttons_list li.hot_button .optional_elements_selector {
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+    #buttons_list li.hot_button div.input_wrapper {
+      margin-bottom: 4px;
+    }
+    #buttons_list li.hot_button a.collapse_section {
+      text-decoration: none;
+      border-bottom: 1px dashed;
+    }
+      #buttons_list li.hot_button a.collapse_section:hover {
+        border-bottom: 1px solid;
+      }
+  #buttons_list li.hot_button.collapsed .description,
+  #buttons_list li.hot_button.collapsed .fields {
+    display: none;
+  }

@@ -1,0 +1,67 @@
+<%
+  issue_statuses = {}
+  IssueStatus.all.each { |status| issue_statuses[status.id] = status.name }
+
+  issue_fields = {
+    :issue_tracker_id => l(:field_tracker),
+    :issue_subject => l(:field_subject),
+    :issue_status_id => l(:field_status),
+    :issue_priority_id => l(:field_priority),
+    :issue_parent_issue_id => l(:field_parent_issue),
+    :issue_start_date => l(:field_start_date),
+    :issue_due_date => l(:field_due_date),
+    :issue_estimated_hours => l(:field_estimated_hours),
+    :issue_done_ratio => l(:field_done_ratio),
+    :issue_fixed_version_id => l(:field_fixed_version)
+  }
+
+  issue_custom_fields = {}
+  time_entry_custom_fields = {}
+  CustomField.all.each { |field|
+    if field[:type].eql? "IssueCustomField"
+      issue_custom_fields[field.id] = field.name
+    elsif field[:type].eql? "TimeEntryCustomField"
+      time_entry_custom_fields[field.id] = field.name
+    end
+  }
+  
+  user_roles = {}
+  Role.all.each { |role| user_roles[role.id] = role.name }
+  
+  i18n_strings = I18n.backend.send(:translations)
+  locale = I18n.locale
+
+  trackers = {}
+  Tracker.all.each { |tracker| trackers[tracker.id] = tracker.name }
+
+  activities = {}
+  TimeEntryActivity.where('project_id IS NULL AND active = true').each { |activity| activities[activity.id] = activity.name}
+  
+  projects = {}
+  Project.all.each { |project|
+    projects[project.id] = project.name
+    project.activities.each { |activity|
+      activities[activity.id] || activities[activity.id] = "#{activity.name} (#{project.name})"
+    }
+  };
+%>
+<% content_for :header_tags do %>
+  <%= javascript_include_tag 'prototype.js', :plugin => 'issue_hot_buttons' %>
+  <%= javascript_include_tag 'settings.js', :plugin => 'issue_hot_buttons' %>
+  <%= stylesheet_link_tag 'settings.css', :plugin => 'issue_hot_buttons' %>
+  <script type="text/javascript">
+    var IssueHotButtonsSettings = {
+      issue_statuses:           <%= raw issue_statuses.to_json %>,
+      issue_trackers:           <%= raw trackers.to_json %>,
+      standart_fields:          <%= raw issue_fields.to_json %>,
+      issue_custom_fields:      <%= raw issue_custom_fields.to_json %>,
+      time_entry_custom_fields: <%= raw time_entry_custom_fields.to_json %>,
+      user_roles:               <%= raw user_roles.to_json %>,
+      projects:                 <%= raw projects.to_json %>,
+      activities:               <%= raw activities.to_json %>,
+      settings:                 <%= raw @settings.to_json %>,
+      i18n_strings:             <%= raw i18n_strings[locale][:issue_hot_buttons].to_json %>
+    };
+  </script>
+<% end %>
+<div id="hot_buttons_settings"></div>
