@@ -11,10 +11,11 @@
   locale = I18n.locale
   
   #escaping issue description as script tags were breaking rendering
-  @issue_copy = @issue.clone
-  unless @issue_copy.description.nil?
-    @issue_copy.description.gsub!(/[><]/, { '>' => '&gt;', '<' => '&lt;' })
-  end
+  #@issue_copy = @issue.clone
+  #unless @issue_copy.description.nil?
+  #  @issue_copy.description.gsub!(/[><]/, { '>' => '&gt;', '<' => '&lt;' })
+  #end
+  #commented out as it causes an error by removing <pre> tags
 %>
 <% content_for :header_tags do %>
   <%= javascript_include_tag 'prototype.js', :plugin => 'issue_hot_buttons' %>
